@@ -1,0 +1,17 @@
+# svelte-app
+svelte-note-app/.DS_Store
+svelte-note-app/node_modules
+svelte-note-app/build
+svelte-note-app/.svelte-kit
+svelte-note-app/package
+svelte-note-app/.env
+svelte-note-app/.env.*
+svelte-note-app/!.env.example
+svelte-note-app/vite.config.js.timestamp-*
+svelte-note-app/vite.config.ts.timestamp-*
+
+
+# build-folder
+out
+node_modules
+package
