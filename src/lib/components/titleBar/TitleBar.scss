@@ -1,0 +1,141 @@
+#title-bar-container {
+    width: 100%;
+    height: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 55px;
+
+
+    // line
+    #title-bar-line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        opacity: 0.3;
+    }
+
+
+    // drag-element
+    #drag-element {
+        width: 100%;
+        height: 100%;
+        -webkit-app-region: drag;
+    }
+
+
+    // logo
+    #title-bar-logo {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        text-indent: -9999em;
+        width: 40px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        img {
+            scale: 0.6;
+        }
+    }
+
+
+    // left-box
+    #title-bar-left-menu-box {
+        display: flex;
+        height: 100%;
+        padding: 5px;
+
+
+        .menu {
+            height: 100%;
+            font-size: 12px;
+            position: relative;
+            padding: 0 10px;
+            opacity: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+                
+
+        .menu:hover,
+        .menu.select {
+            background-color: rgba(6, 182, 212, 0.3);
+            opacity: 1;
+        }
+
+
+        #mode-box {
+            position: absolute;
+            left: 50px;
+            top: 25px;
+            width: 130px;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 3px rgba($color: #000000, $alpha: 0.5);
+            transition: all 0.3s;
+            
+            #mode-text {
+                font-size: 12px;
+                letter-spacing: 1px;
+                cursor: default;
+            }
+        }
+
+
+        .popup-on {
+            visibility: visible;
+            opacity: 1;
+        }
+
+
+        .popup-off {
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+
+
+    // right-box
+    #title-bar-right-btn-box {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        .window-btn {
+            width: 40px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+
+
+            img {
+                opacity: 0.8;
+            }
+        }
+
+
+        .window-size-btn:hover {
+            background-color: rgba(6, 182, 212, 0.3);
+        }
+
+
+        #window-close-btn:hover {
+            background-color: rgba(255, 0, 0, 0.7);
+        }
+    }
+}

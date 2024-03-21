@@ -1,0 +1,41 @@
+#side-bar-container {
+    position: relative;
+    width: 55px;
+    height: 100%;
+
+
+    #side-bar-line {
+        width: 1px;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        opacity: 0.3;
+    }
+
+
+    #page-btn-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+
+        .page-btn {
+            width: 100%;
+            height: 55px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover {
+            background-color: rgba(6, 182, 212, 0.3);
+        }
+
+        .page-btn.now-page {
+            background-color: rgb(6, 182, 212);
+        }
+    }
+}
