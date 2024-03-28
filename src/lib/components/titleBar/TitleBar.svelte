@@ -13,11 +13,16 @@
     import { onDestroy, onMount } from "svelte";
 
 
+
     let modeMenuBtn: HTMLElement;       // 모드 팝업 버튼
     let modePopup: HTMLElement;         // 모드 팝업
 
 
 
+    /**
+     * modeMenu에 대한 활성화 로직
+     * @param flag boolean (true: modeMenu 안보이게, modeMenu: 팝업 보이게)
+     */
     function modeMenuLogic(flag: boolean): void {
         // classList에 select가 있을 때
         if (flag) {

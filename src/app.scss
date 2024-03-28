@@ -18,13 +18,22 @@ html, body {
 
 // 페이지 공통 컨테이너
 #container {
+    position: relative;
     width: 100%;
+    height: 100%;
     padding: 50px;
 }
 
 
 
-// 앱 외곽 라인
+// 토스트 텍스트
+.text-base {
+    font-size: 15px;
+}
+
+
+
+// 외곽 라인
 .container-line {
     position: absolute;
     opacity: 0.3;
@@ -32,7 +41,7 @@ html, body {
 }
 
 
-#container-top-line {
+.container-top-line {
     top: 0;
     left: 0;
     width: 100%;
@@ -40,7 +49,7 @@ html, body {
 }
 
 
-#container-bottom-line {
+.container-bottom-line {
     bottom: 0;
     left: 0;
     width: 100%;
@@ -48,7 +57,7 @@ html, body {
 }
 
 
-#container-left-line {
+.container-left-line {
     top: 0;
     left: 0;
     width: 1px;
@@ -56,7 +65,7 @@ html, body {
 }
 
 
-#container-right-line {
+.container-right-line {
     top: 0;
     right: 0;
     width: 1px;

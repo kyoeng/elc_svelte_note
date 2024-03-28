@@ -1,9 +1,9 @@
 <script lang="ts">
-    import "./+page.scss";
+    import Loading from "$components/loading/Loading.svelte";
+import "./+page.scss";
 </script>
 
 
-
 <div id="home-container">
-    /
+    
 </div>

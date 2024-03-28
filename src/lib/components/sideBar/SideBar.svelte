@@ -1,30 +1,25 @@
 <script lang="ts">
     import "./SideBar.scss";
-    import darkModeIntro from "$assets/images/static/side-bar/dark-mode-intro-icon.png";
-    import lightModeIntro from "$assets/images/static/side-bar/light-mode-intro-icon.png";
-    import darkModeAbout from "$assets/images/static/side-bar/dark-mode-about-icon.png";
-    import lightModeAbout from "$assets/images/static/side-bar/light-mode-about-icon.png";
+    import darkModeHome from "$assets/images/static/side-bar/dark-mode-home.png";
+    import lightModeHome from "$assets/images/static/side-bar/light-mode-home.png";
     import { screenModeStore } from "$stores/common";
     import { afterNavigate } from "$app/navigation";
+    import { onMount } from "svelte";
 
 
-    const pageBtnArr: HTMLElement[] = [];    // 페이지 버튼들을 담는 배열
+    let mainBtn: HTMLElement;    // 메인 화면 버튼
 
 
     // LifeCycle
+    onMount(() => {
+        mainBtn.classList.add("now-page");
+    });
+
+
     afterNavigate(() => {
-        for (const el of pageBtnArr) {
-            if (el.classList.contains("now-page")) el.classList.remove("now-page");
-        }
-
-
         switch (window.location.pathname) {
             case '/':
-                pageBtnArr[0].classList.add("now-page");
-                break;
-
-            case '/about':
-                pageBtnArr[1].classList.add("now-page");
+                mainBtn.classList.add("now-page");
                 break;
         
             default:
@@ -42,12 +37,8 @@
     <div id="side-bar-line" class="bg-surface-800-100-token"></div>
 
     <div id="page-btn-container">
-        <a href="/" class="page-btn" bind:this={pageBtnArr[0]}>
-            <img src={$screenModeStore === "dark" ? darkModeIntro : lightModeIntro} alt="">
-        </a>
-
-        <a href="/about" class="page-btn" bind:this={pageBtnArr[1]}>
-            <img src={$screenModeStore === "dark" ? darkModeAbout : lightModeAbout} alt="">
+        <a href="/" class="page-btn" bind:this={mainBtn}>
+            <img src={$screenModeStore === "dark" ? darkModeHome : lightModeHome} alt="" style="scale: 0.8;">
         </a>
     </div>
 </div>

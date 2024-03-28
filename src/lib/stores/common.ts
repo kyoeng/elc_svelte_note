@@ -16,3 +16,19 @@ function createScreenModeStore() {
     }
 }
 export const screenModeStore = createScreenModeStore();
+
+
+
+
+/**
+ * 유저의 허용여부에 대한 스토어
+ */
+function createIsAllowedUserStore() {
+    const {subscribe, set} = writable("checking");
+
+    return {
+        subscribe,
+        setState: (key: "allowed" | "blocked"): void => set(key)
+    }
+}
+export const isAllowedUserStore = createIsAllowedUserStore();
