@@ -13,11 +13,13 @@ const path = require("path");
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1400,
-    minWidth: 1400,
-    height: 875,
-    minHeight: 875,
+    width: 1600,
+    minWidth: 1600,
+    height: 1000,
+    minHeight: 1000,
     frame: false,
+    resizable: false,
+    maximizable: false,
     webPreferences: {
       nodeIntegration: true,
       // contextIsolation: true,
@@ -37,13 +39,13 @@ const createWindow = () => {
 
 
   // 최대화 및 원래 사이즈 이벤트
-  ipcMain.on('maximizeApp', () => {
-    if (mainWindow.isMaximized()) {
-      mainWindow.restore()
-    } else {
-      mainWindow.maximize()
-    }
-  })
+  // ipcMain.on('maximizeApp', () => {
+  //   if (mainWindow.isMaximized()) {
+  //     mainWindow.restore()
+  //   } else {
+  //     mainWindow.maximize()
+  //   }
+  // })
 
 
   // 닫기 이벤트

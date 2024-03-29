@@ -8,7 +8,7 @@
     import SideBar from '$components/sideBar/SideBar.svelte';
     import { afterNavigate } from '$app/navigation';
     import Info from '$components/modal/info/Info.svelte';
-    import { BE_SERVER, isAllowedUserStore } from '$stores/common';
+    import { BE_SERVER, companyStore, isAllowedUserStore } from '$stores/common';
     import Loading from "$components/loading/Loading.svelte";
     import Blocked from '$components/blocked/blocked.svelte';
     import ErrorPage from '$components/errorPage/ErrorPage.svelte';
@@ -32,13 +32,15 @@
 
 		// server에 허용된 ip인지 요청
 		fetch(BE_SERVER)
-			.then(res => {
-				console.log(res);
-
+			.then(async res => {
 				if (res.status === 200) {
+					const data = await res.json();
+					companyStore.setCompany(data.company);
 					isAllowedUserStore.setState("allowed");
+
 				} else if (res.status === 400) {
 					isAllowedUserStore.setState("blocked");
+
 				} else {
 					isAllowedUserStore.setState("error");
 					throw new Error("서버에서 정상적인 동작이 아닌 다른 동작으로 인해 차단함 status: " + res.status);

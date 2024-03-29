@@ -36,4 +36,20 @@ export const isAllowedUserStore = createIsAllowedUserStore();
 
 
 
+/**
+ * 사용중인 회사명을 저장할 스토어
+ */
+function createCompanyStore() {
+    const {subscribe, set} = writable("");
+
+    return {
+        subscribe,
+        setCompany: (company: string) => set(company)
+    }
+}
+export const companyStore = createCompanyStore();
+
+
+
+
 export const BE_SERVER = "http://localhost:8888/";

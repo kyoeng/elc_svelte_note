@@ -2,17 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const mysql = require("mysql2");
+const { allowedIPs, company, orderQuantity } = require("./serverTempData.cjs");
 
 
 const app = express();
 
-
-// 임시 허용 ip 배열 (나중에 DB로 옮길 예정)
-const allowedIPs = [
-    "127.0.0.1",
-    "192.168.123.110",
-    "::1"
-];
 
 
 // server를 이용 가능한 ip인지 확인하는 미들웨어 함수
@@ -71,11 +65,29 @@ app.get("/", (req, res) => {
 
     if (allowedIPs.includes(clientIP)) {
         console.log("allowed ip - " + clientIP);
-        res.status(200).send("allowed ip");
+        res.status(200).send({"company": company[`${clientIP}`]});
         
     } else {
         console.log(`${clientIP} attempted access and blocked`);
         res.status(400).send("IP Address not allowed");
+    }
+});
+
+
+
+/**
+ * 매출량 관련 데이터 요청 API
+ */
+app.get("/get-order-quantity", (req, res) => {
+    try {
+        const companyIP = Object.keys(company).find(key => company[key] === req.query.company);
+
+        if (companyIP === undefined) throw new Error("요청을 보낸 기업에 해당하는 IP가 없습니다.");
+        res.status(200).send({"data": orderQuantity[companyIP]});
+
+    } catch (error) {
+        console.error("매출량 데이터 처리 중 Error: " + error);
+        res.status(400).send("Server Error");
     }
 });
 

@@ -6,7 +6,7 @@
     import lightModeClose from "$assets/images/static/title-bar/light-mode-close.png";
     import darkModeAbout from "$assets/images/static/footer-bar/dark-mode-about-icon.png";
     import lightModeAbout from "$assets/images/static/footer-bar/light-mode-about-icon.png";
-    import { isAllowedUserStore, screenModeStore } from "$stores/common";
+    import { companyStore, isAllowedUserStore, screenModeStore } from "$stores/common";
     import { Drawer, getDrawerStore, type DrawerSettings, getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
     import BorderLine from "$components/borderLine/BorderLine.svelte";
 
@@ -77,6 +77,13 @@
         <div class="search-box-line bg-surface-800-100-token line-right"></div>
         <img src={$screenModeStore === "dark" ? darkModeAbout : lightModeAbout} alt="">
     </button>
+
+
+    {#if $companyStore.length > 0}
+        <p id="company-info">
+            {$companyStore}
+        </p>
+    {/if}
 </footer>
 
 

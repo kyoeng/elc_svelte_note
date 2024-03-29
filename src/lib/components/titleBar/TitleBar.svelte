@@ -138,9 +138,9 @@
             <img src={$screenModeStore === "dark" ? darkModeMinimize : lightModeMinimize} alt="minimize" style="scale: 0.5;">
         </div>
 
-        <div class="window-btn window-size-btn" id="window-wide-btn">
+        <!-- <div class="window-btn window-size-btn" id="window-wide-btn">
             <img src={$screenModeStore === "dark" ? darkModeWide : lightModeWide} alt="minimize" style="scale: 0.4;">
-        </div>
+        </div> -->
 
         <div class="window-btn" id="window-close-btn">
             <img src={$screenModeStore === "dark" ? darkModeClose : lightModeClose} alt="minimize" style="scale: 0.4;">
