@@ -8,9 +8,10 @@
     import SideBar from '$components/sideBar/SideBar.svelte';
     import { afterNavigate } from '$app/navigation';
     import Info from '$components/modal/info/Info.svelte';
-    import { isAllowedUserStore } from '$stores/common';
+    import { BE_SERVER, isAllowedUserStore } from '$stores/common';
     import Loading from "$components/loading/Loading.svelte";
     import Blocked from '$components/blocked/blocked.svelte';
+    import ErrorPage from '$components/errorPage/ErrorPage.svelte';
 
 
 	initializeStores();		// 스토어 init
@@ -22,16 +23,29 @@
 
 
 	// LifeCycle
-	onMount(() => {
+	onMount(async () => {
         // ipc 스크립트 추가
 		const ipcScript = document.createElement("script");
         ipcScript.src = "/js/ipcFunction.js";
 		document.head.appendChild(ipcScript);
 
 
-		setTimeout(() => {
-			isAllowedUserStore.setState("allowed");
-		}, 5000);
+		// server에 허용된 ip인지 요청
+		fetch(BE_SERVER)
+			.then(res => {
+				console.log(res);
+
+				if (res.status === 200) {
+					isAllowedUserStore.setState("allowed");
+				} else if (res.status === 400) {
+					isAllowedUserStore.setState("blocked");
+				} else {
+					isAllowedUserStore.setState("error");
+					throw new Error("서버에서 정상적인 동작이 아닌 다른 동작으로 인해 차단함 status: " + res.status);
+				}
+			}).catch(err => {
+				console.error("Error: " + err);
+			});
 	});
 
 
@@ -52,6 +66,7 @@
 		<TitleBar />
 	</svelte:fragment>
 
+
 	<!-- 허용된 IP인 경우 사이드바 보이도록 -->
 	<svelte:fragment slot="sidebarLeft">
 		{#if $isAllowedUserStore === "allowed"}
@@ -59,20 +74,24 @@
 		{/if}
 	</svelte:fragment>
 
+
 	<!-- 허용된 IP인 경우 slot에 페이지를 바인딩 -->
 	{#if $isAllowedUserStore === "allowed"}
-		<div id="container">
-			<slot />
-		</div>
+		<div id="container"><slot /></div>
 
 	<!-- 허용된 IP인지 확인중일 때 -->
 	{:else if $isAllowedUserStore === "checking"}
 		<Loading />
 
 	<!-- 허용된 IP가 아니면 차단화면만 -->
-	{:else}
+	{:else if $isAllowedUserStore === "blocked"}
 		<Blocked />
+
+	<!-- 정해진 응답이 아니면 에러 페이지 -->
+	{:else}
+		<ErrorPage />
 	{/if}
+
 
 	<svelte:fragment slot="footer">
 		<FooterBar />

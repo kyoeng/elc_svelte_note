@@ -28,7 +28,12 @@ function createIsAllowedUserStore() {
 
     return {
         subscribe,
-        setState: (key: "allowed" | "blocked"): void => set(key)
+        setState: (key: "allowed" | "blocked" | "error"): void => set(key)
     }
 }
 export const isAllowedUserStore = createIsAllowedUserStore();
+
+
+
+
+export const BE_SERVER = "http://localhost:8888/";
