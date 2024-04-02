@@ -83,7 +83,40 @@ app.get("/get-order-quantity", (req, res) => {
         const companyIP = Object.keys(company).find(key => company[key] === req.query.company);
 
         if (companyIP === undefined) throw new Error("요청을 보낸 기업에 해당하는 IP가 없습니다.");
-        res.status(200).send({"data": orderQuantity[companyIP]});
+
+        const orderData = orderQuantity[companyIP];    // 매출 관련 데이터
+        let thisMonth = 0;                             // 이번 달 총 주문량
+        let last3MonthArr = [0, 0, 0];                 // 지난 3개월 전 총 주문량
+        let lastYearLast4MonthArr = [0, 0, 0, 0];      // 작년 3개월 전 총 주문량
+
+    
+        // 내림차순 정렬 (이번달 매출량 기준)
+        orderData.sort((a, b) => {
+            return b.thisMonthQuantity - a.thisMonthQuantity
+        });
+
+
+        // 총합 계산
+        for (const data of orderData) {
+            thisMonth += data.thisMonthQuantity;
+
+            for (let i = 0; i < data.last3MonthQuantity.length; i++) {
+                last3MonthArr[i] += data.last3MonthQuantity[i];
+            }
+
+            for (let i = 0; i < data.lastYear4MonthQ.length; i++) {
+                lastYearLast4MonthArr[i] += data.lastYear4MonthQ[i];
+            }
+        }
+
+
+        // 응답
+        res.status(200).send({
+            "total": orderQuantity[companyIP],
+            "thisMonth": thisMonth,
+            "last3MonthArr": last3MonthArr,
+            "lastYearLast4MonthArr": lastYearLast4MonthArr
+        });
 
     } catch (error) {
         console.error("매출량 데이터 처리 중 Error: " + error);
